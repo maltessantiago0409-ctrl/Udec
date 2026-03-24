@@ -3,6 +3,6 @@ from tkinter import *
 
 root = tk.Tk()
 root.geometry("350x250")
-
+print("hola")
 
 root.mainloop()

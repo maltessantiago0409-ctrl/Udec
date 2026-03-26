@@ -7,7 +7,10 @@ root.title("Este es el codigo mas uribista de colombia")
 root.iconbitmap(r'pdf\IMG\perico.ico')
 
 
+
 texto1 = tk.Label(root, text="No mano hasta un uribista puede poner el texto").pack()
+
+spim1 = tk.Spinbox(root, text="si").pack()
 
 
 print("hola muy uribista")

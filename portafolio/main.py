@@ -1,4 +1,5 @@
 import flet as ft
+import webbrowser
 
 class PortafolioWeb:
     def __init__(self, page: ft.Page):
@@ -78,9 +79,12 @@ class PortafolioWeb:
         return ft.ResponsiveRow([
             ft.Column([
                 ft.Text("Hola, soy Edwin Santiago Maltes", size=45, weight="bold", color="white"),
-                ft.Text("Soy un estudiante de la Universidad Ucundinamarca en formacion, responsable y puntual .", size=20, color="white"),
+                ft.Row([ft.Image(src="telefono.svg", width=35),
                 ft.Text("Numero: 3052981801 .", size=20, color="white"),
+                ]),
+                ft.Row([ft.Image(src="gmail.svg", width=35),
                 ft.Text("Correo: maltessantiago0409@gmail.com .", size=20, color="white"),
+                 ]),
                 ft.ElevatedButton("Ver servicios", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(1)),
                 ft.ElevatedButton("Ver resumen", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(2))
             ], col={"md": 8}, alignment="center"),
@@ -93,6 +97,12 @@ class PortafolioWeb:
         ], vertical_alignment="center")
 
     def build_servicio(self):
+
+        def abrir_github(e):
+            url = "https://github.com/maltessantiago0409-ctrl/Udec"
+            webbrowser.open_new_tab(url.strip())
+
+            
         return ft.Column([
             ft.Text("Mis Servicios", size=35, weight="bold"),
             ft.ResponsiveRow([
@@ -101,8 +111,16 @@ class PortafolioWeb:
                 self.crear_tarjeta("Github", "git.jpeg"),
             ]),
             ft.ElevatedButton("Ver inicio", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(0)),
-            ft.ElevatedButton("Ver resumen", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(2))
-            
+            ft.ElevatedButton("Ver resumen", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(2)),
+            ft.ElevatedButton("Entrar al Github",bgcolor=self.color_primaria,color="white",on_click=abrir_github
+
+
+
+                              
+
+
+            )
+
         ], scroll="auto")
 
     def build_resumen(self):
@@ -155,9 +173,10 @@ class PortafolioWeb:
             self.page.theme_mode = ft.ThemeMode.DARK
             self.cambiar_modo.icon = "light_mode"
         self.page.update()
+    
 
 def main(page: ft.Page):
     PortafolioWeb(page)
 
 if __name__ == "__main__":
-    ft.app(target=main, assets_dir="assets")
+    ft.app(target=main,view=ft.AppView.WEB_BROWSER, assets_dir="assets")

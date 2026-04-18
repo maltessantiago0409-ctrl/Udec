@@ -6,14 +6,6 @@ CARD_HEIGHT = 100
 CARD_OFFSET = 20
 DROP_PROXIMITY = 30
 
-SUITS = {
-    "hearts": "♥",
-    "diamonds": "♦",
-    "clubs": "♣",
-    "spades": "♠",
-}
-
-
 # -------- SLOT --------
 class Slot(ft.Container):
     def __init__(self, solitaire, top, left, border=None):
@@ -57,32 +49,17 @@ class Card(ft.GestureDetector):
         self.content = ft.Container(
             width=CARD_WIDTH,
             height=CARD_HEIGHT,
-            bgcolor="#1565c0",  # reverso azul
+            bgcolor=ft.Colors.GREEN,
             border_radius=ft.border_radius.all(6),
-            alignment=ft.alignment.center,
         )
 
     def turn_face_up(self):
         self.face_up = True
-
-        color = ft.Colors.RED if self.suite in ["hearts", "diamonds"] else ft.Colors.BLACK
-
         self.content.bgcolor = ft.Colors.WHITE
-        self.content.content = ft.Column(
-            controls=[
-                ft.Text(f"{self.rank} {SUITS[self.suite]}", size=14, color=color),
-                ft.Container(expand=True),
-                ft.Text(SUITS[self.suite], size=30, color=color),
-            ],
-            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-        )
-        self.update()
 
     def turn_face_down(self):
         self.face_up = False
-        self.content.bgcolor = "#1565c0"
-        self.content.content = None
-        self.update()
+        self.content.bgcolor = ft.Colors.GREEN
 
     def move_on_top(self):
         self.solitaire.controls.remove(self)
@@ -111,10 +88,11 @@ class Card(ft.GestureDetector):
         if self.face_up:
             self.move_on_top()
 
-def drag(self, e):
-    if self.face_up:
-        self.top += e.delta_y
-        self.left += e.delta_x
+    def drag(self, e):
+        if self.face_up:
+            self.top += e.delta_y
+            self.left += e.delta_x
+            self.update()
 
     def drop(self, e):
         if not self.face_up:
@@ -175,11 +153,11 @@ class Solitaire(ft.Stack):
         ]
 
     def create_slots(self):
-        self.stock = Slot(self, 0, 0, ft.border.all(2, ft.Colors.WHITE))
-        self.waste = Slot(self, 0, 100, ft.border.all(2, ft.Colors.WHITE))
+        self.stock = Slot(self, 0, 0, ft.border.all(1))
+        self.waste = Slot(self, 0, 100)
 
         self.foundations = [
-            Slot(self, 0, 300 + i * 100, ft.border.all(2, ft.Colors.WHITE))
+            Slot(self, 0, 300 + i * 100, ft.border.all(1))
             for i in range(4)
         ]
 
@@ -228,8 +206,7 @@ class Solitaire(ft.Stack):
 
 # -------- MAIN --------
 def main(page: ft.Page):
-    page.title = "Klondike"
-    page.bgcolor = "#2e7d32"
+    page.title = "Solitaire"
     page.add(Solitaire())
 
 

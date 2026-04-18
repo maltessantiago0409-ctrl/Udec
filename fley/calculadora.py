@@ -2,31 +2,57 @@ from dataclasses import field
 import flet as ft
 
 
-
-
 def main(page: ft.Page):
-    page.title = "Calculadora"
-    result = ft.Text(value="0", color=ft.Colors.WHITE, size=20)
+    page.title = "Calc App"
 
+    result = ft.Text(value="0", color=ft.Colors.WHITE, size=20)
+    current = ""
+
+    def button_click(e):
+        nonlocal current
+        text = e.control.content.value
+
+        current += text
+        result.value = current
+        page.update()
+
+    def clear(e):
+        nonlocal current
+        current = ""
+        result.value = "0"
+        page.update()
+
+    def calculate(e):
+        nonlocal current
+        try:
+            current = str(eval(current))
+        except:
+            current = "Error"
+
+        result.value = current
+        page.update()
+
+    # -------- BOTONES --------
     @ft.control
-    class CalcButton(ft.Button):
+    class CalcButton(ft.ElevatedButton):
         expand: int = field(default_factory=lambda: 1)
-    
+
     @ft.control
     class DigitButton(CalcButton):
         bgcolor: ft.Colors = ft.Colors.WHITE_24
         color: ft.Colors = ft.Colors.WHITE
-    
+
     @ft.control
     class ActionButton(CalcButton):
         bgcolor: ft.Colors = ft.Colors.ORANGE
         color: ft.Colors = ft.Colors.WHITE
-    
+
     @ft.control
     class ExtraActionButton(CalcButton):
         bgcolor: ft.Colors = ft.Colors.BLUE_GREY_100
         color: ft.Colors = ft.Colors.BLACK
 
+    # -------- UI --------
     page.add(
         ft.Container(
             width=350,
@@ -35,61 +61,56 @@ def main(page: ft.Page):
             padding=20,
             content=ft.Column(
                 controls=[
-        ft.Row(controls=[result], alignment=ft.MainAxisAlignment.END),
-        ft.Row(
-            controls=[
-            ExtraActionButton(content="AC"),
-            ExtraActionButton(content="+/-"),
-            ExtraActionButton(content="%"),
-            ExtraActionButton(content="/"),
-            ]
-        ),
+                    ft.Row(controls=[result], alignment=ft.MainAxisAlignment.END),
 
-      
-       ft.Row(
-            controls=[
-            DigitButton(content="7"),
-            DigitButton(content="8"),
-            DigitButton(content="9"),
-            ActionButton(content="*"),
-           ]
-       ),
+                    ft.Row(
+                        controls=[
+                            ExtraActionButton(content=ft.Text("AC"), on_click=clear),
+                            ExtraActionButton(content=ft.Text("+/-")),
+                            ExtraActionButton(content=ft.Text("%")),
+                            ActionButton(content=ft.Text("/"), on_click=button_click),
+                        ]
+                    ),
 
-       
-       ft.Row(
-            controls=[
-            DigitButton(content="4"),
-            DigitButton(content="5"),
-            DigitButton(content="6"),
-            ActionButton(content="-"),
-           ]
+                    ft.Row(
+                        controls=[
+                            DigitButton(content=ft.Text("7"), on_click=button_click),
+                            DigitButton(content=ft.Text("8"), on_click=button_click),
+                            DigitButton(content=ft.Text("9"), on_click=button_click),
+                            ActionButton(content=ft.Text("*"), on_click=button_click),
+                        ]
+                    ),
 
-       ),
-       ft.Row(
-            controls=[
-            DigitButton(content="1"),
-            DigitButton(content="2"),
-            DigitButton(content="3"),
-            ActionButton(content="+"),
-            ]
+                    ft.Row(
+                        controls=[
+                            DigitButton(content=ft.Text("4"), on_click=button_click),
+                            DigitButton(content=ft.Text("5"), on_click=button_click),
+                            DigitButton(content=ft.Text("6"), on_click=button_click),
+                            ActionButton(content=ft.Text("-"), on_click=button_click),
+                        ]
+                    ),
 
-       ),
-        
-        ft.Row(
-            controls=[
-            DigitButton(content="0", expand=2),
-            DigitButton(content="."),
-            ActionButton(content="="),
-            ],
-          ),
-       ]              
-     ),
-   )
- )
+                    ft.Row(
+                        controls=[
+                            DigitButton(content=ft.Text("1"), on_click=button_click),
+                            DigitButton(content=ft.Text("2"), on_click=button_click),
+                            DigitButton(content=ft.Text("3"), on_click=button_click),
+                            ActionButton(content=ft.Text("+"), on_click=button_click),
+                        ]
+                    ),
+
+                    ft.Row(
+                        controls=[
+                            DigitButton(content=ft.Text("0"), expand=2, on_click=button_click),
+                            DigitButton(content=ft.Text("."), on_click=button_click),
+                            ActionButton(content=ft.Text("="), on_click=calculate),
+                        ],
+                    ),
+                ]
+            ),
+        )
+    )
 
 
-
-
-
-if __name__ == "__main__":    
+if __name__ == "__main__":
     ft.run(main)

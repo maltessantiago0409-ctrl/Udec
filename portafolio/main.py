@@ -77,8 +77,10 @@ class PortafolioWeb:
     def build_inicio(self):
         return ft.ResponsiveRow([
             ft.Column([
-                ft.Text("Hola, soy Desarrollador", size=45, weight="bold", color="white"),
-                ft.Text("Bienvenido a mi espacio de proyectos.", size=20, color="white"),
+                ft.Text("Hola, soy Edwin Santiago Maltes", size=45, weight="bold", color="white"),
+                ft.Text("Soy un estudiante de la Universidad Ucundinamarca en formacion, responsable y puntual .", size=20, color="white"),
+                ft.Text("Numero: 3052981801 .", size=20, color="white"),
+                ft.Text("Correo: maltessantiago0409@gmail.com .", size=20, color="white"),
                 ft.ElevatedButton("Ver servicios", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(1)),
                 ft.ElevatedButton("Ver resumen", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(2))
             ], col={"md": 8}, alignment="center"),
@@ -117,6 +119,10 @@ class PortafolioWeb:
             ft.Row([
                 ft.Image(src="TKINTER.svg", width=40,color="white"),
                 ft.Text("Interfaces gráficas con TkinterS", size=18,color="white")
+            ]),
+            ft.Row([
+                ft.Image(src="github.png", width=45,color="white"),
+                ft.Text("Control de versiones con Git", size=18,color="white")
             ]),
 
             ft.ElevatedButton("Ver inicio", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(0)),

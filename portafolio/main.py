@@ -45,7 +45,7 @@ class PortafolioWeb:
             content=self.build_resumen(),
         )
 
-        # LAYOUT PRINCIPAL
+       
         layout = ft.Column(
             expand=True,
             spacing=0,
@@ -79,15 +79,18 @@ class PortafolioWeb:
         return ft.ResponsiveRow([
             ft.Column([
                 ft.Text("Hola, soy Edwin Santiago Maltes", size=45, weight="bold", color="white"),
-                ft.Row([ft.Image(src="telefono.svg", width=35),
+                ft.Row([ft.Image(src="telefono.svg", width=35,color="white"),
                 ft.Text("Numero: 3052981801 .", size=20, color="white"),
                 ]),
-                ft.Row([ft.Image(src="gmail.svg", width=35),
+                ft.Row([ft.Image(src="gmail.svg", width=35,color="white"),
                 ft.Text("Correo: maltessantiago0409@gmail.com .", size=20, color="white"),
                  ]),
                 ft.ElevatedButton("Ver servicios", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(1)),
                 ft.ElevatedButton("Ver resumen", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(2))
             ], col={"md": 8}, alignment="center"),
+
+
+            
             ft.Container(
                 content=ft.Image(src="universidad.jpeg", border_radius=20, fit="cover"),
                 col={"md": 3},
@@ -102,13 +105,18 @@ class PortafolioWeb:
             url = "https://github.com/maltessantiago0409-ctrl/Udec"
             webbrowser.open_new_tab(url.strip())
 
-            
+
         return ft.Column([
             ft.Text("Mis Servicios", size=35, weight="bold"),
             ft.ResponsiveRow([
                 self.crear_tarjeta("Diseño Web", "html5.svg"),
                 self.crear_tarjeta("Python Dev", "python.svg"),
                 self.crear_tarjeta("Github", "git.jpeg"),
+
+                
+                
+
+        
             ]),
             ft.ElevatedButton("Ver inicio", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(0)),
             ft.ElevatedButton("Ver resumen", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(2)),
@@ -116,9 +124,7 @@ class PortafolioWeb:
 
 
 
-                              
-
-
+                        
             )
 
         ], scroll="auto")
@@ -144,7 +150,8 @@ class PortafolioWeb:
             ]),
 
             ft.ElevatedButton("Ver inicio", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(0)),
-            ft.ElevatedButton("Ver servicios", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(1))
+            ft.ElevatedButton("Ver servicios", bgcolor=self.color_primaria, color="white", on_click=lambda _: self.cambiar_pagina(1)),
+            
         ], spacing=20)
 
     def crear_tarjeta(self, titulo, img_src):
